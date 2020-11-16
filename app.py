@@ -10,11 +10,8 @@ app.logger.setLevel(gunicorn_logger.level)
 
 @app.route('/', methods=['POST'])
 def main():
-    app.logger.warning(request.get_json())
-    q = request.form.get('q')
-    app.logger.warning(q)
-    appid = request.form.get('appid')
-    app.logger.warning(appid)
+    q = dict(request.get_json())['q']
+    appid = dict(request.get_json())['appid']
     response = requests.get('http://api.openweathermap.org/data/2.5/weather',
                  params = [('q', q), ('appid', appid)])
     return response.json()
