@@ -10,7 +10,7 @@ app.logger.setLevel(gunicorn_logger.level)
 
 @app.route('/', methods=['POST'])
 def main():
-    app.logger.warning(request)
+    app.logger.warning(request.get_json())
     q = request.form.get('q')
     app.logger.warning(q)
     appid = request.form.get('appid')
