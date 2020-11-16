@@ -1,12 +1,14 @@
 from flask import Flask, escape, request
 import requests
+import logging
 
 app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def main():
     q = request.form.get('q')
+    logging.log('DEBUG', q)
     appid = request.form.get('appid')
-    response = requests.get('api.openweathermap.org/data/2.5/weather',
+    response = requests.get('http://api.openweathermap.org/data/2.5/weather',
                  params = [('q', q), ('appid', appid)])
     return response.json()
